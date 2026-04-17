@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Juan Y Juan | Presupuestador Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body { font-family: 'Lexend', sans-serif; background-color: #0f1113; color: white; -webkit-tap-highlight-color: transparent; }
+        .tab-active { border-bottom: 3px solid #ffb400; color: #ffb400; font-weight: 700; }
+        .hide { display: none !important; }
+        .custom-scroll::-webkit-scrollbar { display: none; }
+        .sticky-top { position: sticky; top: 0; z-index: 1000; background: #000; }
+        .sticky-tools { position: sticky; top: 96px; z-index: 900; background: #0f1113; border-bottom: 1px solid #222; }
+        #modal-presupuesto { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #0f1113; z-index: 10000; display: flex; flex-direction: column; }
+        input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+<header class="sticky-top p-4 border-b border-gray-800 shadow-2xl">
+    <div class="max-w-xl mx-auto flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-bold text-yellow-500 tracking-tighter leading-none">JUAN Y JUAN</h1>
+            <p class="text-[9px] text-gray-400 font-bold uppercase mt-1 tracking-widest italic">25 de Mayo 965 | Chos Malal</p>
+            <div id="status-horario" class="mt-1"></div>
+        </div>
+        <div class="text-right">
+            <p class="text-[9px] text-gray-500 uppercase font-bold">Total Est.</p>
+            <p id="total-header" class="text-xl font-black text-yellow-500">$0</p>
+        </div>
+    </div>
+</header>
+
+<div class="sticky-tools">
+    <div class="p-3 max-w-xl mx-auto">
+        <div class="relative">
+            <i class="bi bi-search absolute left-4 top-2.5 text-gray-500"></i>
+            <input type="text" id="inputBusqueda" onkeyup="ejecutarBusqueda()" placeholder="Buscar productos..." class="w-full bg-gray-900 border border-gray-700 rounded-xl py-2.5 pl-11 pr-4 text-xs text-white outline-none focus:border-yellow-500">
+        </div>
+    </div>
+    <div id="abc-container" class="flex overflow-x-auto custom-scroll px-3 pb-2 gap-1 max-w-xl mx-auto border-b border-gray-900"></div>
+    <nav id="nav-rubros" class="flex overflow-x-auto custom-scroll max-w-xl mx-auto"></nav>
+</div>
+
+<main class="max-w-xl mx-auto p-4 mb-32">
+    <div class="mb-6 p-4 bg-gray-900/50 border border-gray-800 rounded-2xl">
+        <p class="text-[10px] text-gray-400 text-center uppercase font-bold tracking-widest leading-relaxed">
+            Lunes a viernes: 9:00 a 13:00 y 16:30 a 20:30<br>
+            Sábado: 9:00 a 13:00 y 16:30 a 20:30<br>
+            <span class="text-yellow-500">Precios de contado efectivo. Sujetos a modificación.</span>
+        </p>
+    </div>
+
+    <div id="contenedor-productos" class="grid grid-cols-1 gap-4"></div>
+
+    <div class="mt-20 p-8 border-2 border-dashed border-gray-800 rounded-3xl text-center">
+        <p class="text-[10px] text-gray-600 uppercase font-bold mb-4">Panel de Administración</p>
+        <label for="csv-upload" class="bg-gray-800 text-gray-400 px-6 py-3 rounded-xl text-[10px] font-bold uppercase cursor-pointer hover:bg-gray-700 transition-all">
+            <i class="bi bi-file-earmark-arrow-up mr-2"></i>Actualizar Base de Datos (CSV)
+        </label>
+        <input type="file" id="csv-upload" accept=".csv,.chr" class="hidden" onchange="handleFileUpload(event)">
+        <p id="last-update" class="text-[8px] text-gray-700 mt-4 uppercase"></p>
+    </div>
+</main>
+
+<footer class="fixed bottom-0 left-0 w-full p-4 bg-black/90 border-t border-gray-800 z-[110] backdrop-blur-md">
+    <button onclick="abrirResumen()" class="max-w-xl mx-auto w-full bg-yellow-500 text-black font-black py-4 rounded-xl shadow-xl uppercase text-xs tracking-widest">Ver Detalle de Presupuesto</button>
+</footer>
+
+<div id="modal-presupuesto" class="hide">
+    <div class="p-6 border-b border-gray-800 flex justify-between items-center bg-black">
+        <div><h2 class="text-xl font-bold text-yellow-500 uppercase tracking-tighter">Resumen</h2><p class="text-[9px] text-gray-500 font-bold uppercase mt-1 italic">Juan Y Juan • 25 de Mayo 965</p></div>
+        <button onclick="cerrarResumen()" class="text-gray-400 text-4xl">&times;</button>
+    </div>
+    <div id="lista-resumen" class="flex-grow overflow-y-auto p-4 space-y-3 custom-scroll"></div>
+    <div class="p-6 bg-gray-900 border-t border-gray-800">
+        <div class="flex justify-between items-end mb-6 px-2"><span class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Total Estimado</span><span id="total-modal" class="text-4xl font-bold text-yellow-500">$0</span></div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+            <button onclick="compartirPresupuesto()" class="bg-blue-600/20 text-blue-400 border border-blue-600/30 py-4 rounded-xl font-bold text-[9px] uppercase"><i class="bi bi-share-fill mr-1"></i> Compartir</button>
+            <button onclick="vaciarPresupuesto()" class="bg-red-600/10 text-red-500 border border-red-600/20 py-4 rounded-xl font-bold text-[9px] uppercase"><i class="bi bi-trash3 mr-1"></i> Borrar Todo</button>
+        </div>
+        <button onclick="cerrarResumen()" class="w-full bg-gray-800 text-white py-4 rounded-xl font-bold text-[9px] uppercase tracking-widest">Seguir Sumando</button>
+    </div>
+</div>
+
+<script>
+    // --- 1. CONFIGURACIÓN Y DATOS ---
+    const COMBOS = [
+        { id: 'c1', descripcion: "6 Latas Heineken + 1 Cerveza 361", precio: 12500, img: "https://images.unsplash.com/photo-1618885472179-5e474019f2a9?w=300" }
+    ];
+
+    let PRODUCTOS_AUTO = JSON.parse(localStorage.getItem('jYj_database')) || [];
+    let carrito = JSON.parse(localStorage.getItem('jYj_presupuesto')) || {};
+    let rubroActual = 'Ofertas y Combos';
+
+    function init() {
+        generarABC();
+        generarNavRubros();
+        actualizarHorario();
+        actualizarTotales();
+        renderizar('Ofertas y Combos');
+        
+        const last = localStorage.getItem('jYj_last_update');
+        if(last) document.getElementById('last-update').innerText = "Última carga: " + last;
+    }
+
+    // --- 2. MOTOR DE CARGA (GESCOM) ---
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const text = e.target.result;
+            const lineas = text.split('\n');
+            
+            const nuevosProductos = lineas.map((l, i) => {
+                const cols = l.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                if (cols.length > 15) {
+                    return {
+                        id: `a${i}`,
+                        rubro: cols[5].replace(/"/g, '').trim(),
+                        descripcion: cols[12].replace(/"/g, '').trim(),
+                        precio: parseInt(cols[15])
+                    };
+                }
+                return null;
+            }).filter(p => p !== null);
+
+            if(nuevosProductos.length > 0) {
+                PRODUCTOS_AUTO = nuevosProductos;
+                localStorage.setItem('jYj_database', JSON.stringify(PRODUCTOS_AUTO));
+                localStorage.setItem('jYj_last_update', new Date().toLocaleString());
+                alert("Base de datos actualizada con éxito.");
+                location.reload();
+            } else {
+                alert("Error: Verifica el formato del archivo.");
+            }
+        };
+        reader.readAsText(file);
+    }
+
+    // --- 3. MOTOR DE RENDERIZADO (OPTIMIZADO PARA 3000+ ITEMS) ---
+    function renderizar(categoria, filtro = "", modoLetra = false) {
+        const contenedor = document.getElementById('contenedor-productos');
+        
+        let pool = [];
+        if (categoria === 'Ofertas y Combos') pool = COMBOS;
+        else if (categoria === 'Todos') pool = [...COMBOS, ...PRODUCTOS_AUTO];
+        else pool = PRODUCTOS_AUTO.filter(p => p.rubro === categoria);
+
+        const filtrados = pool.filter(p => {
+            const desc = p.descripcion || "";
+            if (modoLetra) return desc.toLowerCase().startsWith(filtro.toLowerCase());
+            return desc.toLowerCase().includes(filtro.toLowerCase());
+        });
+
+        if (filtrados.length === 0) {
+            contenedor.innerHTML = `<p class="py-10 text-center text-gray-500 text-[10px] uppercase tracking-widest">No hay artículos</p>`;
+            return;
+        }
+
+        // Construimos todo el HTML en una variable para pegarlo de un solo golpe (Velocidad Pro)
+        let htmlFinal = "";
+
+        filtrados.forEach(p => {
+            const qty = carrito[p.id]?.qty || 0;
+            const controls = `
+                <div class="flex items-center bg-black border border-gray-700 rounded-lg p-1">
+                    <button onclick="modificar('${p.id}', -1, ${p.precio}, '${p.descripcion}')" class="w-8 h-8 font-bold text-gray-500">-</button>
+                    <input type="number" value="${qty}" id="qty-${p.id}" onchange="inputManual('${p.id}', this.value, ${p.precio}, '${p.descripcion}')" class="w-10 bg-transparent text-center text-xs font-bold text-yellow-500 outline-none">
+                    <button onclick="modificar('${p.id}', 1, ${p.precio}, '${p.descripcion}')" class="w-8 h-8 font-bold text-yellow-500">+</button>
+                </div>`;
+
+            if (p.img) {
+                htmlFinal += `
+                    <div class="bg-gray-800/40 rounded-2xl border border-gray-700 flex p-2.5 items-center">
+                        <img src="${p.img}" class="w-20 h-20 object-cover rounded-xl border border-gray-700">
+                        <div class="pl-4 flex-grow">
+                            <h3 class="text-[10px] font-bold uppercase leading-tight">${p.descripcion}</h3>
+                            <div class="flex justify-between items-center mt-2">
+                                <span class="text-sm font-bold text-yellow-500">$${p.precio.toLocaleString()}</span>
+                                ${controls}
+                            </div>
+                        </div>
+                    </div>`;
+            } else {
+                htmlFinal += `
+                    <div class="bg-gray-800/20 p-3 rounded-xl border border-gray-800 flex justify-between items-center">
+                        <div class="pr-2 text-left">
+                            <p class="text-[10px] font-bold uppercase text-gray-300 leading-tight">${p.descripcion}</p>
+                            <p class="text-yellow-500 font-bold text-sm mt-1">$${p.precio.toLocaleString()}</p>
+                        </div>
+                        ${controls}
+                    </div>`;
+            }
+        });
+
+        contenedor.innerHTML = htmlFinal;
+    }
+
+    // --- 4. FUNCIONALIDADES ---
+    function generarABC() {
+        const container = document.getElementById('abc-container');
+        container.innerHTML = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split('').map(l => `
+            <button onclick="buscarPorLetra('${l}')" class="min-w-[30px] h-[30px] bg-gray-800 rounded-md text-[10px] font-bold text-gray-400 active:bg-yellow-500 active:text-black">${l}</button>
+        `).join('');
+    }
+
+    function generarNavRubros() {
+        const rubrosUnicos = [...new Set(PRODUCTOS_AUTO.map(p => p.rubro))];
+        const rubrosFinales = [{id:'Ofertas y Combos',texto:'Ofertas y Combos'}, {id:'Todos',texto:'Todos'}];
+        rubrosUnicos.forEach(r => rubrosFinales.push({id:r, texto:r}));
+        const nav = document.getElementById('nav-rubros');
+        nav.innerHTML = rubrosFinales.map(r => `
+            <button onclick="cambiarRubro('${r.id}', this)" class="px-6 py-4 text-[10px] uppercase ${r.id===rubroActual?'tab-active':'text-gray-500'} whitespace-nowrap">${r.texto}</button>
+        `).join('');
+    }
+
+    function modificar(id, delta, precio, desc) {
+        if (!carrito[id]) carrito[id] = { qty: 0, precio, desc };
+        carrito[id].qty += delta; if (carrito[id].qty < 0) carrito[id].qty = 0;
+        actualizarTotales();
+        document.querySelectorAll(`#qty-${id}`).forEach(i => i.value = carrito[id].qty);
+    }
+
+    function inputManual(id, valor, precio, desc) {
+        let cant = parseInt(valor) || 0; carrito[id] = { qty: cant < 0 ? 0 : cant, precio, desc };
+        actualizarTotales();
+    }
+
+    function actualizarTotales() {
+        let total = 0; for (let k in carrito) total += carrito[k].qty * carrito[k].precio;
+        document.getElementById('total-header').innerText = `$${total.toLocaleString()}`;
+        document.getElementById('total-modal').innerText = `$${total.toLocaleString()}`;
+        localStorage.setItem('jYj_presupuesto', JSON.stringify(carrito));
+    }
+
+    function cambiarRubro(rubro, btn) {
+        rubroActual = rubro;
+        document.querySelectorAll('#nav-rubros button').forEach(b => b.className = "px-6 py-4 text-[10px] uppercase text-gray-500 whitespace-nowrap");
+        btn.className = "px-6 py-4 text-[10px] uppercase tab-active whitespace-nowrap";
+        renderizar(rubro);
+    }
+
+    function ejecutarBusqueda() { renderizar(rubroActual, document.getElementById('inputBusqueda').value, false); }
+    function buscarPorLetra(letra) { renderizar(rubroActual, letra, true); }
+    function vaciarPresupuesto() { if (confirm("¿BORRAR TODO?")) { carrito = {}; actualizarTotales(); renderizar(rubroActual); cerrarResumen(); } }
+    function cerrarResumen() { document.getElementById('modal-presupuesto').classList.add('hide'); document.body.style.overflow = 'auto'; }
+
+    function abrirResumen() {
+        const lista = document.getElementById('lista-resumen');
+        let html = ""; let hayItems = false;
+        for (let id in carrito) {
+            if (carrito[id].qty > 0) {
+                hayItems = true; const sub = carrito[id].qty * carrito[id].precio;
+                html += `<div class="bg-gray-800/60 p-4 rounded-xl border border-gray-700"><div class="flex justify-between items-start mb-2"><p class="text-[10px] font-extrabold text-white uppercase pr-4 leading-tight">${carrito[id].desc}</p><button onclick="delete carrito['${id}']; actualizarTotales(); abrirResumen();" class="text-red-500"><i class="bi bi-trash"></i></button></div><div class="flex justify-between items-center"><div class="flex items-center bg-black border border-gray-600 rounded-lg p-1"><button onclick="modificar('${id}', -1, ${carrito[id].precio}, '${carrito[id].desc}')" class="px-2 font-bold text-gray-400">-</button><input type="number" value="${carrito[id].qty}" onchange="inputManual('${id}', this.value, ${carrito[id].precio}, '${carrito[id].desc}')" class="w-10 bg-transparent text-center text-[11px] font-bold text-yellow-500 outline-none"><button onclick="modificar('${id}', 1, ${carrito[id].precio}, '${carrito[id].desc}')" class="px-2 font-bold text-yellow-500">+</button></div><p class="text-yellow-500 font-bold text-sm">$${sub.toLocaleString()}</p></div></div>`;
+            }
+        }
+        if (!hayItems) return alert("Presupuesto vacío.");
+        lista.innerHTML = html; document.getElementById('modal-presupuesto').classList.remove('hide'); document.body.style.overflow = 'hidden';
+    }
+
+    function compartirPresupuesto() {
+        let msg = "*JUAN Y JUAN*%0A25 de Mayo 965, Chos Malal%0A--------------------------%0A";
+        let total = 0;
+        for(let id in carrito) { if(carrito[id].qty > 0) { const sub = carrito[id].qty * carrito[id].precio; msg += `• ${carrito[id].qty}x ${carrito[id].desc} ($${sub.toLocaleString()})%0A`; total += sub; } }
+        msg += `--------------------------%0A*TOTAL ESTIMADO: $${total.toLocaleString()}*%0A%0A_Precios contado efectivo. Sujetos a modificación._`;
+        window.open(`https://wa.me/?text=${msg}`, '_blank');
+    }
+
+    function actualizarHorario() {
+        const ahora = new Date(); const hora = ahora.getHours() + (ahora.getMinutes() / 60); const dia = ahora.getDay(); 
+        const el = document.getElementById('status-horario');
+        const abierto = (dia >= 1 && dia <= 6) && ((hora >= 9 && hora < 13) || (hora >= 16.5 && hora < 20.5));
+        el.innerHTML = abierto ? `<span class="text-[9px] text-green-500 font-bold uppercase">● Abierto ahora</span>` : `<span class="text-[9px] text-red-500 font-bold uppercase">● Cerrado ahora</span>`;
+    }
+
+    init();
+</script>
+</body>
+</html>
