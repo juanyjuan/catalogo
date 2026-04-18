@@ -92,19 +92,23 @@
     // 1. PEGA AQUÍ TODA TU LISTA DEL BLOC DE NOTAS:
     // ==========================================
     const CSV_DATA_FIJO = `
+
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","2458","AGUA ECO 12 x 500 cc",14997,26,18600,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","2439","AGUA ECO 6 x 1500 cc",10188,39,12600,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","27081","AGUA ECO 6 x 850 cc",9679,34,12000,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22318","AGUA ECO ONE 6 x 1 Lt",10160,51,12600,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100105","SODA ECO 12 x 500 cc",14515,43,18000,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1028","AGUA BENEDICTINO 12 x 500 cc",11193,94,13800,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1043","AGUA BONAQUA 12 x 500 cc",13118,60,16200,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","5445","AGUA NPV 2 x 6,3 Lts",8429,75,10200,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","2441","AGUA MANAOS 12 x 600 cc",5950,41,7200,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","2440","AGUA MANAOS 6 x 2000 cc",4958,68,6000,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","20020","AGUA MANAOS x 6 LTS",2396,69,2900,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","AGUAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","20005","SODA MANAOS 6 x 2 Lts",9917,36,12000,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Aguas Y Sodas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100105","SODA ECO 12 x 500 cc",14515,43,18000,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Aguas Y Sodas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1028","AGUA BENEDICTINO 12 x 500 cc",11193,94,13800,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","18668","BRAHMA COOLER DISTRIBUIDORES",8181,82,9900,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1071","BOTELLA COCA RETORNABLE x 1",1239,67,1500,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","15002","COOLER INFLABLE BRAHMA",10661,16,12900,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","17409","QUILMES CHOPP",8842,97,10700,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101438","3D QUESO x 85 g",2809,92,3400,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101469","ABRELATA CON MANIJA",9173,55,11100,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100201","ACEIT. LA TOSCAN MORRON x 250 g",2396,69,2900,00
@@ -589,7 +593,6 @@
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102268","HABANITOS x 60 g",2231,40,2700,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101812","HARINA BLANCAFLOR FORT. x 1 Kg",1818,18,2200,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101051","HARINA BLANCAFLOR x 1 Kg",1357,47,1500,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100217","HARINA CAÑUELAS 000 x 25 Kg",15656,11,17300,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100828","HARINA CAÑUELAS x 5 Kg",5248,87,5800,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100324","HARINA CHACABUCO INT x  1 kg",1402,71,1550,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100311","HARINA CHACABUCO LEUDANTE x 1 Kg",1402,71,1550,00
@@ -1085,6 +1088,7 @@
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Almacén","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100642","Y. SINCERIDAD C/P HIERBAS x 500 g",3140,50,3800,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","BEB ENERGIZANTES","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1022","MONSTER 6 x 473 cc",11887,74,14400,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","BEB ENERGIZANTES","Cod_Art","Descripcion","Neto","Pr.Final","Desc","16370","RED BULL 24 x 250 cc",45619,83,55200,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","BEB ENERGIZANTES","Cod_Art","Descripcion","Neto","Pr.Final","Desc","200000","COMBO VODKA SERNOVA + 2 RED BULL",7355,37,8900,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","BEB ENERGIZANTES","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102695","SPEED 12 x 473 ml",22314,05,27000,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","BEB ENERGIZANTES","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101016","SPEED 24 x 250",27768,59,33600,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Cervezas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","2057","ANDES 12 x 1 Lt",31431,51,40800,00
@@ -1162,7 +1166,6 @@
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Champan","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102905","CHAMP. OMNIUM E/B x 750 cc",3925,62,4750,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Champan","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102156","CHAMP. SALENTEIN  x 750 cc",11322,31,13700,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Champan","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102873","CHAMPAN F. DE ALVEAR BRUT x 750 cc",2148,76,2600,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Energizantes","Cod_Art","Descripcion","Neto","Pr.Final","Desc","200000","COMBO VODKA SERNOVA + 2 RED BULL",7355,37,8900,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Envases CMQ","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100190","CHAPADUR CMQ",4462,81,5400,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Envases CMQ","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100185","DOC BOTELLA AMBAR 12 x 1/1",7889,93,10680,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Envases CMQ","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100186","DOC BOTELLA AMBAR 12 x 2/3",399,49,600,00
@@ -1204,6 +1207,7 @@
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Fiambres Y Carnes","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101326","SALCHICHON C/JAMON PAL x 300 g",3223,14,3900,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Fiambres Y Carnes","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101376","SALCHICHON TRIPLE FLIAR x 300 g",3057,85,3700,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Forraje, Harina, Azucar","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100687","AZUCAR 10 x 1 Kg",11487,60,13900,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Forraje, Harina, Azucar","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100217","HARINA CAÑUELAS 000 x 25 Kg",15656,11,17300,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Forraje, Harina, Azucar","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101211","HARINA PIGUE x 25 Kg",22171,95,24500,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Forraje, Harina, Azucar","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101425","SEMITIN PIGUE x 35 Kg",13140,50,15900,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Gaseosas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","667","7 UP 12  x 500 CC",16516,26,20400,00
@@ -1284,6 +1288,7 @@
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Licores Y Aperitivos","Cod_Art","Descripcion","Neto","Pr.Final","Desc","C11","GANCIA x 1 Lt + SPRITE x 2250 cc",8169,42,10900,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Licores Y Aperitivos","Cod_Art","Descripcion","Neto","Pr.Final","Desc","C14","GANCIA x 1 Lt + SPRITE x 3 Lts",8515,70,11300,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Licores Y Aperitivos","Cod_Art","Descripcion","Neto","Pr.Final","Desc","C16","GANCIA x 1.25 + SPRITE x 3 Lts",9789,26,13100,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Licores Y Aperitivos","Cod_Art","Descripcion","Neto","Pr.Final","Desc","76363","GIN BOSQUE 4 x 500 cc",44628,10,54000,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Licores Y Aperitivos","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102636","AMARULA x 375 cc",11909,09,16650,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Licores Y Aperitivos","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102805","AMARULA x 750 cc",22495,87,31450,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Licores Y Aperitivos","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101021","ANANA FIZZ RAMA CAIDA C/A 6 x 710 cc",14876,03,18000,00
@@ -1816,10 +1821,6 @@
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Limpieza","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101732","WOOLITE BLANCO x 450 G",2809,92,3400,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Limpieza","Cod_Art","Descripcion","Neto","Pr.Final","Desc","101731","WOOLITE OSCURA D/P x 450 cc",2809,92,3400,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Limpieza","Cod_Art","Descripcion","Neto","Pr.Final","Desc","100692","WOOLITE TODOS LOS DIAS x 450 dp",2314,05,2800,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Material POP","Cod_Art","Descripcion","Neto","Pr.Final","Desc","18668","BRAHMA COOLER DISTRIBUIDORES",8181,82,9900,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Nutreco","Cod_Art","Descripcion","Neto","Pr.Final","Desc","111114","GOLIAT NARANJA 6 x 3 lts",694,21,840,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","POP","Cod_Art","Descripcion","Neto","Pr.Final","Desc","15002","COOLER INFLABLE BRAHMA",10661,16,12900,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","POP","Cod_Art","Descripcion","Neto","Pr.Final","Desc","17409","QUILMES CHOPP",8842,97,10700,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Saborizadas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","14097","AWAFRUT MANZANA 6 x 1650 cc",8429,75,10200,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Saborizadas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","27486","AWAFRUT NARANJA 12 x 500 cc",6446,28,7800,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Saborizadas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","27485","AWAFRUT POMELO 12 x 500 cc",6942,15,8400,00
@@ -1843,12 +1844,11 @@
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Saborizadas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1016","AQUARIUS PERA 6 x 500 cc",6942,15,8400,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Saborizadas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1014","AQUARIUS POMELO 6 x 1500 cc",17355,37,21000,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Saborizadas","Cod_Art","Descripcion","Neto","Pr.Final","Desc","1012","AQUARIUS POMELO 6 x 500 cc",6942,15,8400,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","SPIRITS ADYACENCIAS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","76363","GIN BOSQUE 4 x 500 cc",44628,10,54000,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","VINOS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","25769","DANTE ROBINO WHITE BLEND 6 x 750 cc",20330,58,24600,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","VINOS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22452","NOVECENTO CHARDONAY 6 x 750 cc",11404,96,13800,00
-17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","VINOS","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22329","NOVECENTO MALBEC 6 x 750 cc",14876,03,18000,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22459","DANTE ROBINO MALBEC 6 x 750 cc",20330,58,24600,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","25769","DANTE ROBINO WHITE BLEND 6 x 750 cc",20330,58,24600,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22452","NOVECENTO CHARDONAY 6 x 750 cc",11404,96,13800,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22327","NOVECENTO EXTRA BRUT 6 x 750 cc",27272,73,33000,00
+17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22329","NOVECENTO MALBEC 6 x 750 cc",14876,03,18000,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","22321","NOVECENTO RAICES C/S 6 x 750 cc",19338,84,23400,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102193","ABRASADO BLEND DE PARCELAS x 750 cc",4545,45,5500,00
 17/4/2026,"Distribuidora Juan y Juan",1,"LISTA DE PRECIOS DE VENTA","Efectivo","Vinos Botella","Cod_Art","Descripcion","Neto","Pr.Final","Desc","102189","ABRASADO GRAN CABERNET FRANC x 750 cc",10165,29,12300,00
